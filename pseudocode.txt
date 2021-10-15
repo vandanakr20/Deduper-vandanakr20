@@ -1,18 +1,18 @@
 Define the problem:
-In RNA-seq library prep, we amplify our library using PCR for sequencing. However, this can cause skew in our RNA-seq results because we can't know if multiple copies of a fragment are because the gene is overexpressed in the experiment or because of PCR duplication. As a result, we want to remove all the PCR duplicates we can see the true results of the RNA-seq experiment. 
+In RNA-seq library prep, we amplify our libraries using PCR to prepare for sequencing. However, this can cause skew in our RNA-seq results because we can't know if multiple copies of a fragment are because the gene is overexpressed in the experiment or because of a PCR duplication. As a result, we want to remove all the PCR duplicates we can see the true results of the RNA-seq experiment. 
 
 Input SAM File: Deduper-vandanakr20/input.SAM
 Output SAM File: Deduper-vandanakr20/output.SAM
 
 Pseudocode:
 BEFORE RUNNING CODE:
+- use unix commands to remove the headers from the input file and add them to the output file
 - run samtools sort to sort the input SAM file by UMI
-- use unix commands to remove the heads from the input file and add them to the output file
 
 UMI_set - make a set of all UMIs
 
 Create a empty dictionary with UMIs as keys and another dictionary as the values 
-    for the inner dictionary, the keys are 'Start Position', 'Chromosome Number' and 'Strand' as the keys and a list as the values for all three
+    for the inner dictionary, the keys are 'Start Position', 'Chromosome Number' and 'Strand' and the values are a list for all three
 
 Open the sorted SAM file
     for each line in the SAM file
@@ -24,7 +24,7 @@ Open the sorted SAM file
             replace start position with real start position from fix_start()
         if start position, chromosome, UMI, and strand are in dict --> use check() function
             continue and get the next line
-        else ( start position and chromosome are not in dict )
+        else ( position, chromosome, UMI, and strand are not in dict )
             add a new entry to data frame with UMI, Start Position, Chromosome Number, and Strand
             write record to output file 
 
