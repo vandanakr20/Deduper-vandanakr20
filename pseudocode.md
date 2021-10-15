@@ -1,0 +1,73 @@
+Define the problem:
+In RNA-seq library prep, we amplify our library using PCR for sequencing. However, this can cause skew in our RNA-seq results because we can't know if multiple copies of a fragment are because the gene is overexpressed in the experiment or because of PCR duplication. As a result, we want to remove all the PCR duplicates we can see the true results of the RNA-seq experiment. 
+
+Input SAM File: Deduper-vandanakr20/input.SAM
+Output SAM File: Deduper-vandanakr20/output.SAM
+
+Pseudocode:
+BEFORE RUNNING CODE:
+- run samtools sort to sort the input SAM file by UMI
+- use unix commands to remove the heads from the input file and add them to the output file
+
+UMI_set - make a set of all UMIs
+
+Create a empty dictionary with UMIs as keys and another dictionary as the values 
+    for the inner dictionary, the keys are 'Start Position', 'Chromosome Number' and 'Strand' as the keys and a list as the values for all three
+
+Open the sorted SAM file
+    for each line in the SAM file
+        use extract() function to extract the UMI, Start Position, Chromosome Number, Cigar String, and Strand (bitwise flag) from line
+        if UMI not in UMI_set
+            continue and get the next line (error correct in the future)
+        if the cigar string contains a soft clip
+            pass the cigar string and start position to fix_start() function 
+            replace start position with real start position from fix_start()
+        if start position, chromosome, UMI, and strand are in dict --> use check() function
+            continue and get the next line
+        else ( start position and chromosome are not in dict )
+            add a new entry to data frame with UMI, Start Position, Chromosome Number, and Strand
+            write record to output file 
+
+Functions:
+def extract(line: str) -> list:
+    
+'''
+This function will take a string and return of list of 5 items from the line, UMI, Start Position, Chromosome Number, Cigar String, and Strand (bitwise flag)
+Input: NS500451:154:HWKTMBGXX:1:11101:24260:1121:CTGTTCAC	0	2	76814284	36	5M	*	0	0	TCCAG	6AEEE	MD:Z:71	NH:i:1	HI:i:1	NM:i:0	SM:i:36	XQ:i:40	X2:i:0	XO:Z:UU
+Expected output: ['CTGTTCAC', '76814284', '2', '5M', '36']
+
+parameter: string line
+return: list of strings info
+
+return list
+'''
+
+def fix_start(cigar: str, start: str) -> int:
+    
+'''
+This function will take a string of the cigar string and a string of the start position and return the updated start position as an int after accounting for soft clipping. 
+
+Input: 3S5M, 13
+Expected output: 10
+
+parameter: string cigar, string start 
+return: int new_start 
+
+return int
+'''
+
+def check(start: str, chrom: str, UMI: str, strand: str) -> bool:
+    
+'''
+This function will take strings of the start position, chromosome, UMI, and strand and returns a bool (True/False) if record is in dict
+
+Input: 'CTGTTCAC', '76814284', '2', '5M', '36'
+Expected output: False 
+
+parameter: string start, string chrom, string UMI, string strand
+return: bool in_dict
+
+return bool 
+'''
+
+
