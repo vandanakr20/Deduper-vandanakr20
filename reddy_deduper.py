@@ -164,6 +164,7 @@ prev_chrom = '0'
 all_recs = {}
 in_dict = True
 value = ''
+bad_umi = 0
 
 for line in fhr:
     #write out header lines to output file
@@ -198,8 +199,10 @@ for line in fhr:
             else:
                 #record is in dict --> ignore 
                 continue
+        else:
+            bad_umi += 1
 
-
+#print(bad_umi)
 #close the files
 fhr.close()
 fhw.close()
