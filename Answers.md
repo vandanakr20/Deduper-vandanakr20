@@ -1,19 +1,23 @@
 Note to future self: make sure you read the bitwise flag the correct way
 
+Samtools sort function: 
+`samtools sort /projects/bgmp/shared/deduper/C1_SE_uniqAlign.sam -o /projects/bgmp/vandanar/Bioinformatics/Bi624/Deduper-vandanakr20/sorted_file.sam`
+
 Number of reads in original file: 18,186,410
-cat sorted_file.sam | grep -v "^@" | wc -l
+`cat sorted_file.sam | grep -v "^@" | wc -l`
 
 Number of uniq reads: 13,719,048
-cat C1_SE_uniqAlign_deduped.sam | grep -v "^@" | wc -l
+`cat C1_SE_uniqAlign_deduped.sam | grep -v "^@" | wc -l`
 
 Number of header lines: 65
-cat C1_SE_uniqAlign_deduped.sam | grep -E "^@" | wc -l
+`cat C1_SE_uniqAlign_deduped.sam | grep -E "^@" | wc -l`
 
 Number of duplicates removed: 18,186,410 - 13,719,048 = 4,467,362
 
 Number of wrong UMIs: 0
 
-Uniq reads per chromosome: cat C1_SE_uniqAlign_deduped.sam | grep -v "^@" | cut -f 3 | uniq -c 
+Uniq reads per chromosome: `cat C1_SE_uniqAlign_deduped.sam | grep -v "^@" | cut -f 3 | uniq -c`
+```
 697508 1
 564903 10
 1220389 11
@@ -57,5 +61,5 @@ Uniq reads per chromosome: cat C1_SE_uniqAlign_deduped.sam | grep -v "^@" | cut 
 3 GL456368.1
 3 MU069434.1
 111 JH584295.1
-
+```
 
