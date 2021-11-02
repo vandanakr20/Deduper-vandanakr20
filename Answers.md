@@ -18,6 +18,7 @@ Number of wrong UMIs: 0
 
 Uniq reads per chromosome: `cat C1_SE_uniqAlign_deduped.sam | grep -v "^@" | cut -f 3 | uniq -c`
 ```
+Number of Reads   Chromosome
 697508 1
 564903 10
 1220389 11
