@@ -8,4 +8,4 @@
 #SBATCH --ntasks-per-node=1     ### Number of tasks to be launched per Node
 #SBATCH --account=bgmp          ### Account used for job submission
 
-/usr/bin/time -v ./reddy_deduper.py -f /projects/bgmp/vandanar/Bioinformatics/Bi624/Deduper-vandanakr20/sorted_file.sam -u /projects/bgmp/vandanar/Bioinformatics/Bi624/Deduper-vandanakr20/STL96.txt
+/usr/bin/time -v ./reddy_deduper.py -f /projects/bgmp/vandanar/Bioinformatics/Bi624/Deduper-vandanakr20/sorted_file.sam -u /projects/bgmp/vandanar/Bioinformatics/Bi624/Deduper-vandanakr20/UMI_list.txt
